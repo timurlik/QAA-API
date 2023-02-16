@@ -1,7 +1,6 @@
-package Lesson3;
+package Lesson4;
 
 import org.junit.jupiter.api.BeforeAll;
-import sun.security.util.Password;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,6 +14,8 @@ public abstract class AbstractTest {
     private static String baseUrl;
     private static String complexSearch;
     private static String recipesCuisine;
+    private static String postShopListBody;
+    private static String hash;
     @BeforeAll
     static void initTest() throws IOException {
         configFile = new FileInputStream("src/main/resources/my.properties");
@@ -23,6 +24,8 @@ public abstract class AbstractTest {
         baseUrl = properties.getProperty("baseUrl");
         complexSearch = properties.getProperty("complexSearch");
         recipesCuisine = properties.getProperty("recipesCuisine");
+        postShopListBody = properties.getProperty("postShopListBody");
+        hash = properties.getProperty("hash");
     }
     public static String getApiKey() {
         return apiKey;
@@ -36,4 +39,6 @@ public abstract class AbstractTest {
     public static String getRecipesCuisine() {
         return recipesCuisine;
     }
+    public static String getPostShopListBody() {return postShopListBody;}
+    public static String getHash() {return hash;}
 }

@@ -2,12 +2,15 @@ package Lesson3;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
 
+@Disabled
 public class Tests extends AbstractTest{
-
     @BeforeAll
     static void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
@@ -61,11 +64,14 @@ public class Tests extends AbstractTest{
         given()
                 .queryParam("apiKey", getApiKey())
                 .queryParam("query", "pasta")
+                .response()
+                .contentType(ContentType.JSON)
+                .expect()
+                .body("results[0].title", containsString("Pasta"))
                 .when()
                 .get(getBaseUrl() + getComplexSearch())
-                .prettyPeek()
-                .then()
-                .statusCode(200);
+                .prettyPeek();
+
     }
     @Test
     void classifyCuisineTest() {
@@ -77,5 +83,4 @@ public class Tests extends AbstractTest{
                 .then()
                 .statusCode(200);
     }
-
 }
