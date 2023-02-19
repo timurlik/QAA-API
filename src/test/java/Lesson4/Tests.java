@@ -107,7 +107,7 @@ public class Tests extends AbstractTest {
                 .body(getPostShopListBody())
                 .when()
                 .post(getBaseUrl() + "/mealplanner/timurlik0/shopping-list/items");
-        Integer id = Integer.valueOf(given()
+        int id = given()
                 .spec(requestSpecification)
                 .queryParam("username", "timurlik0")
                 .queryParam("hash", getHash())
@@ -118,7 +118,8 @@ public class Tests extends AbstractTest {
                 .all()
                 .extract()
                 .jsonPath()
-                .get("aisles.items.id").toString().substring(2,9));
+                .get("aisles[0].items[0].id");
+        System.out.println(id);
         given()
                 .spec(requestSpecification)
                 .queryParam("username", "timurlik0")
